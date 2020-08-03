@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication # ใช้ token ด้วยสำหรับ Login
+from rest_framework import filters
 
 from profiles_api import serializers
 from profiles_api import models
@@ -98,6 +99,9 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = models.UserProfile.objects.all()
     authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.UpdateOwnProfile,)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name', 'email',) # search ได้ด้วย name หรือ email field นะ
+
 
 
 
